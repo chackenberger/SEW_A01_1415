@@ -1,16 +1,12 @@
 package tgm.sew.hit.roboterfabrik;
 
-public class Assembler implements Runnable {
+public class Assembler {
 	private Part[] storage;
 	
 	public Assembler() {
 		
 	}
 	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-	}
 	/**
 	 * Requests a PartType from the StorageGuy
 	 * @param type
