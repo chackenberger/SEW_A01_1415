@@ -1,3 +1,4 @@
+package tgm.sew.hit.roboterfabrik;
 
 public class Assembler implements Runnable {
 	private Part[] storage;
