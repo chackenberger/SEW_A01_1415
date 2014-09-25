@@ -1,8 +1,14 @@
 package tgm.sew.hit.roboterfabrik;
 
 public class Supplier implements Runnable {
-	public int[] storage;
-
+	
+	/**
+	 * 
+	 */
+	public Supplier() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public void run() {
 		genNumbers();
@@ -10,10 +16,10 @@ public class Supplier implements Runnable {
 	}
 	/**
 	 * generates random numbers for the Parts
-	 * @return
+	 * @return int[]
 	 */
 	public int[] genNumbers() {
-		this.storage = new int[20];
+		int[] storage = new int[20];
 		for (int i = 0; i <20; i++) {
 			storage[i] = (int)((Math.random()*100)+1);
 		}
@@ -23,6 +29,6 @@ public class Supplier implements Runnable {
 		}
 		System.out.println();
 		*/
-		return null;
+		return storage;
 	}
 }
