@@ -18,6 +18,10 @@ public enum PartType {
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * Returns the file name for this PartType
+	 * @return the file name for this PartType
+	 */
 	public String getFileName() {
 		return this.fileName;
 	}
