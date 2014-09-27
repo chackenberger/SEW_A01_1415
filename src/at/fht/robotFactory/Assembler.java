@@ -1,7 +1,15 @@
-package tgm.sew.hit.roboterfabrik;
+package at.fht.robotFactory;
 
-public class Assembler {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import at.hackenberger.lib.Watchable;
+
+public class Assembler implements Runnable, Watchable {
+	
 	private Part[] storage;
+	
+	private Logger logger;
 	
 	public Assembler() {
 		
@@ -26,13 +34,23 @@ public class Assembler {
 	 * sorts numbers as a symbol of assembling
 	 * @param type
 	 */
-	private void sort(Part type) {
+	private void sort(Part part) {
 		
 	}
-	/*
-	 * http://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
-	 */
+
 	private void robotArchive(Part[] parts){
 		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean shutdown() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

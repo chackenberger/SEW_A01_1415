@@ -1,7 +1,11 @@
-package tgm.sew.hit.roboterfabrik;
+package at.fht.robotFactory;
+
+import org.apache.logging.log4j.Logger;
 
 public class Office
 {
+	private Logger logger;
+	
 	public Office()
 	{
 		

@@ -1,14 +1,9 @@
-package tgm.sew.hit.roboterfabrik;
+package at.fht.robotFactory;
 //test
 public class Employee
 {
 	private int iD;
-	
-	public Employee()
-	{
-		
-	}
-	
+
 	public int getID() 
 	{
 		return iD;
