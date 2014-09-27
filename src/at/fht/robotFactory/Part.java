@@ -1,5 +1,7 @@
 package at.fht.robotFactory;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author Christoph Hackenberger
@@ -42,5 +44,36 @@ public class Part {
 	 */
 	public void setNumbers(int[] numbers) {
 		this.numbers = numbers;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(numbers);
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Part))
+			return false;
+		Part other = (Part) obj;
+		if (!Arrays.equals(numbers, other.numbers))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
 	}
 }
