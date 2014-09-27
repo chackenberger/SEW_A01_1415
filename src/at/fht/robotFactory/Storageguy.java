@@ -141,6 +141,8 @@ public class Storageguy extends Employee {
 		if (part == null)
 			return;
 		PartType type = part.getPartType();
+		if (type == null)
+			return;
 		synchronized (type) {
 			File file = files.get(part.getPartType());
 			try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
