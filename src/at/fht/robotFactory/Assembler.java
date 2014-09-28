@@ -12,9 +12,10 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	private Part[] storage;
 	
 	private Logger logger;
+	private Storageguy sg;
 	
 	public Assembler() {
-		
+		this.sg = new Storageguy(null);
 	}
 	
 	/**
@@ -23,18 +24,16 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @return 
 	 */
 	private Part requestPart(PartType type) {
-		// STORGAEDIR?????
-		Storageguy sg = new Storageguy(null);
-		return sg.getPart(type);
+		return this.sg.getPart(type);
 	}
 	/**
 	 * returns Parts back to the Storageguy if the 
 	 * Assembler didnt get all requierd Parts
 	 */
 	private void returnParts(){
-		Storageguy sg = new Storageguy(null);
 		for (int i = 0; i < storage.length; i++){
-			sg.storePart(storage[i]);
+			this.sg.storePart(storage[i]);
+			storage[i] = null;
 		}
 	}
 	/**
@@ -60,8 +59,20 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 */
 	@Override
 	public void run() {
-//  Storage[] mit all den Koerperteilen fuer den Threadee auffüllen
-//	storage[i].requestPart(ARM,AUGE...)	 
+		this.storage[0] = sg.getPart(PartType.ARM);
+		this.storage[1] = sg.getPart(PartType.EYE);
+		this.storage[2] = sg.getPart(PartType.GEAR);
+		this.storage[3] = sg.getPart(PartType.BODY);
+		for (int i = 0; i < storage.length; i++){
+			if (this.storage[i].equals(null)) {
+				returnParts();
+				break;
+			}
+		}
+		for (int i = 0; i < storage.length; i++) {
+			sort(this.storage[i]);
+		}
+		robotArchive(storage);
 	}
 	/**
 	 * for the Watchdog
