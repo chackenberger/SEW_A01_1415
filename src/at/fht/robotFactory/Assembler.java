@@ -28,8 +28,8 @@ public class Assembler extends Employee implements Runnable, Watchable {
 		return sg.getPart(type);
 	}
 	/**
-	 * returns Parts back to the SstorageGuy if the 
-	 * Assembler didnt got all requierd Parts
+	 * returns Parts back to the Storageguy if the 
+	 * Assembler didnt get all requierd Parts
 	 */
 	private void returnParts(){
 		Storageguy sg = new Storageguy(null);
@@ -41,24 +41,31 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * sorts numbers as a symbol of assembling
 	 * @param type
 	 */
-	private void sort(Part part) {
-		logger = LogManager.getLogger(this.getClass().getName());
+	public void sort(Part part) {
+//		logger = LogManager.getLogger(this.getClass().getName());
 		int[] sortHelp;
 		sortHelp = part.getNumbers();
 		Arrays.sort(sortHelp);
 		part.setNumbers(sortHelp);
 	}
-
+	/**
+	 * puts all the Robotparts together to assemble a Threadee
+	 * @param parts
+	 */
 	private void robotArchive(Part[] parts){
 		
 	}
-
+	/**
+	 * 
+	 */
 	@Override
 	public void run() {
 //  Storage[] mit all den Koerperteilen fuer den Threadee auffüllen
 //	storage[i].requestPart(ARM,AUGE...)	 
 	}
-
+	/**
+	 * for the Watchdog
+	 */
 	@Override
 	public boolean shutdown() {
 		return false;
