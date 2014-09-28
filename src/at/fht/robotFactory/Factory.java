@@ -1,5 +1,7 @@
 package at.fht.robotFactory;
 
+import org.apache.logging.log4j.Logger;
+
 public class Factory implements Runnable {
 
 	public static Factory instance;
