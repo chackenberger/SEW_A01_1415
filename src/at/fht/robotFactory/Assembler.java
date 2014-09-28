@@ -12,10 +12,12 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	private Part[] storage;
 	
 	private Logger logger;
-	private Storageguy sg;
+	private boolean shutdown = false;
 	
 	public Assembler() {
-		this.sg = new Storageguy(null);
+		this.setID(Factory.getOffice().requestID());
+		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID()  + ")");
+		this.storage = new Part[PartType.values().length];
 	}
 	
 	/**
@@ -24,15 +26,16 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @return 
 	 */
 	private Part requestPart(PartType type) {
-		return this.sg.getPart(type);
+		return Factory.getStorage().getPart(type);
 	}
 	/**
 	 * returns Parts back to the Storageguy if the 
 	 * Assembler didnt get all requierd Parts
 	 */
 	private void returnParts(){
+		Storageguy sg = Factory.getStorage();
 		for (int i = 0; i < storage.length; i++){
-			this.sg.storePart(storage[i]);
+			sg.storePart(storage[i]);
 			storage[i] = null;
 		}
 	}
@@ -40,8 +43,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * sorts numbers as a symbol of assembling
 	 * @param type
 	 */
-	public void sort(Part part) {
-//		logger = LogManager.getLogger(this.getClass().getName());
+	private void sort(Part part) {
 		int[] sortHelp;
 		sortHelp = part.getNumbers();
 		Arrays.sort(sortHelp);
@@ -52,33 +54,32 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param parts
 	 */
 	private void robotArchive(Part[] parts){
-		
+		Factory.getStorage().storeThreadee(this.getID(), parts);
 	}
 	/**
 	 * 
 	 */
 	@Override
 	public void run() {
-		this.storage[0] = sg.getPart(PartType.ARM);
-		this.storage[1] = sg.getPart(PartType.EYE);
-		this.storage[2] = sg.getPart(PartType.GEAR);
-		this.storage[3] = sg.getPart(PartType.BODY);
-		for (int i = 0; i < storage.length; i++){
-			if (this.storage[i].equals(null)) {
-				returnParts();
-				break;
+		while(!shutdown) {
+			PartType[] types = PartType.values();
+			for(int i = 0; i < types.length; i++) {
+				Part part = requestPart(types[i]);
+				if(part == null) {
+					returnParts();
+					continue;
+				}
+				sort(part);
+				storage[i] = part;
 			}
+			robotArchive(storage);
 		}
-		for (int i = 0; i < storage.length; i++) {
-			sort(this.storage[i]);
-		}
-		robotArchive(storage);
 	}
 	/**
 	 * for the Watchdog
 	 */
 	@Override
 	public boolean shutdown() {
-		return false;
+		return (this.shutdown = true);
 	}
 }

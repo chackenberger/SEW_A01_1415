@@ -2,15 +2,15 @@ package at.fht.robotFactory;
 //test
 public class Employee
 {
-	private int iD;
+	private long iD;
 
-	public int getID() 
+	public long getID() 
 	{
 		return iD;
 	}
-	public void setID(int iD) 
+	public void setID(long l) 
 	{
-		this.iD = iD;
+		this.iD = l;
 	}
 	
 }
