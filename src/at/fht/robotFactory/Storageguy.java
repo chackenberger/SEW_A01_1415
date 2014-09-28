@@ -16,8 +16,9 @@ import au.com.bytecode.opencsv.CSVWriter;
 
 /**
  * 
- * @author Christoph Hackenberger Handler for reading and writing Parts and
- *         Threadees to the hard disk
+ * @author Christoph Hackenberger
+ * Handler for reading and writing Parts and
+ * Threadees to the hard disk
  */
 public class Storageguy extends Employee {
 
@@ -33,8 +34,7 @@ public class Storageguy extends Employee {
 	 * Created a new Storageguy object and creates the files and directories,
 	 * for the storage on the hard disk
 	 * 
-	 * @param storageDir
-	 *            the directory where the files will be stored
+	 * @param storageDir the directory where the files will be stored
 	 */
 	public Storageguy(String storageDir) {
 		logger = LogManager.getLogger(this.getClass().getName() + "("
@@ -69,8 +69,7 @@ public class Storageguy extends Employee {
 	/**
 	 * Reads a Part from the Hard Disk and returns it
 	 * 
-	 * @param type
-	 *            the type of the Part which should be returned
+	 * @param type the type of the Part which should be returned
 	 * @return the read Part
 	 */
 	public Part getPart(PartType type) {
@@ -134,8 +133,7 @@ public class Storageguy extends Employee {
 	/**
 	 * Writes a Part to the hard disk
 	 * 
-	 * @param part
-	 *            the Part which should be written to the hard disk
+	 * @param part the Part which should be written to the hard disk
 	 */
 	public void storePart(Part part) {
 		if (part == null)
@@ -169,10 +167,8 @@ public class Storageguy extends Employee {
 	/**
 	 * Writes a Threadee to the hard disk
 	 * 
-	 * @param employeeID
-	 *            the id from the employee which assembled the Threadee
-	 * @param parts
-	 *            the parts of which the Threadee consists
+	 * @param employeeID the id from the employee which assembled the Threadee
+	 * @param parts the parts of which the Threadee consists
 	 */
 	public void storeThreadee(long employeeID, Part[] parts) {
 		if (parts == null)
