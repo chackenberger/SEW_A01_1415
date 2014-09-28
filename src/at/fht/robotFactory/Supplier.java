@@ -3,7 +3,11 @@ package at.fht.robotFactory;
 import org.apache.logging.log4j.Logger;
 
 import at.hackenberger.lib.Watchable;
-
+/**
+ * 
+ * @author FOCK
+ *
+ */
 public class Supplier implements Runnable, Watchable {
 	
 	private Logger logger;
@@ -26,7 +30,7 @@ public class Supplier implements Runnable, Watchable {
 		for (int i = 0; i <20; i++) {
 			storage[i] = (int)((Math.random()*100)+1);
 		}
-		/* f�rs testen
+		/* fuers testen
 		for (int j = 0; j<storage.length; j++) {
 			System.out.print(storage[j]+", ");
 		}
