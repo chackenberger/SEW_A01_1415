@@ -19,6 +19,7 @@ public class Office
 		logger = LogManager.getLogger(this.getClass().getName());
 		employeeID = 0;
 		threadeeID = 0;
+		logger.info("Office generated");
 	}
 	/*
 	 * @return ID for employee
