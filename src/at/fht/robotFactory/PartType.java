@@ -3,7 +3,7 @@ package at.fht.robotFactory;
 /**
  * 
  * @author Hackenberger Christoph
- * Saves the diffrent PartTypes and also their fileName in the storage directory
+ * Saves the different PartTypes and also their fileName in the storage directory
  */
 public enum PartType {
 	

@@ -10,6 +10,12 @@ public class Employee
 	/*
 	 * @return get ID from the Employee
 	 */
+	
+	public Employee()
+	{
+		this.setID(Factory.getOffice().requestID());
+	}
+	
 	public long getID() 
 	{
 		return iD;

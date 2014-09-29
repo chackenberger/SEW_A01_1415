@@ -15,9 +15,10 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	private boolean shutdown = false;
 	
 	public Assembler() {
-		this.setID(Factory.getOffice().requestID());
+		super();
 		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID()  + ")");
 		this.storage = new Part[PartType.values().length];
+		
 	}
 	
 	/**

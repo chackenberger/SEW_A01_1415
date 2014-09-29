@@ -37,7 +37,7 @@ public class Storageguy extends Employee {
 	 * @param storageDir the directory where the files will be stored
 	 */
 	public Storageguy(String storageDir) {
-		this.setID(Factory.getOffice().requestID());
+		super();
 		logger = LogManager.getLogger(this.getClass().getName() + "("
 				+ this.getID() + ")");
 		files = new HashMap<PartType, File>();
