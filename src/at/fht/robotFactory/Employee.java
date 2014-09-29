@@ -7,15 +7,16 @@ public class Employee
 {
 	private long iD;
 
-	/*
-	 * @return get ID from the Employee
-	 */
+	
 	
 	public Employee()
 	{
 		this.setID(Factory.getOffice().requestID());
 	}
 	
+	/*
+	 * @return get ID from the Employee
+	 */
 	public long getID() 
 	{
 		return iD;
