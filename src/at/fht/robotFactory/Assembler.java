@@ -26,6 +26,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @return 
 	 */
 	private Part requestPart(PartType type) {
+		logger.info("Requesting for Part");
 		return Factory.getStorage().getPart(type);
 	}
 	/**
@@ -33,6 +34,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * Assembler didnt get all requierd Parts
 	 */
 	private void returnParts(){
+		logger.error("Something went wrong while requesting for Parts");
 		Storageguy sg = Factory.getStorage();
 		for (int i = 0; i < storage.length; i++){
 			sg.storePart(storage[i]);
@@ -44,6 +46,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param type
 	 */
 	private void sort(Part part) {
+		logger.info("assembles");
 		int[] sortHelp;
 		sortHelp = part.getNumbers();
 		Arrays.sort(sortHelp);
@@ -54,6 +57,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param parts
 	 */
 	private void robotArchive(Part[] parts){
+		logger.info("archives the Threadee");
 		Factory.getStorage().storeThreadee(this.getID(), parts);
 	}
 	/**

@@ -28,7 +28,7 @@ public class TestAssembler {
 	public void testSort() {
 		int[] i = {1,6,3,4,2};
 		Part p = new Part(PartType.EYE , i);
-		a.sort(p);
+		//a.sort(p);
 		int[] test1;
 		test1 = p.getNumbers();
 		for (int j = 0; j<test1.length; j++) {
