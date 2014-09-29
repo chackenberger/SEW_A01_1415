@@ -1,8 +1,10 @@
 package at.fht.robotFactory;
 
 import org.apache.logging.log4j.Logger;
-
-import com.sun.swing.internal.plaf.synth.resources.synth;
+/*
+ * @author Seyyid Tiryaki
+ * @description The Office awards IDs for the employees and robots
+ */
 
 public class Office
 {
@@ -13,16 +15,17 @@ public class Office
 	
 	public Office()
 	{
-		
+		employeeID = 0;
+		threadeeID = 0;
 	}
 	
 	public synchronized long requestID()
-	{
-		return 0;
+	{	
+		return employeeID++;
 	}
 	
 	public synchronized long requestRobotID()
 	{
-		return 0;
+		return threadeeID++;
 	}
 }
