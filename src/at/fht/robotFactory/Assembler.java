@@ -26,7 +26,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param type
 	 * @return 
 	 */
-	private Part requestPart(PartType type) {
+	public Part requestPart(PartType type) {
 		logger.info("Requesting for Part");
 		return Factory.getStorage().getPart(type);
 	}
@@ -46,7 +46,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * sorts numbers as a symbol of assembling
 	 * @param type
 	 */
-	private void sort(Part part) {
+	public void sort(Part part) {
 		logger.info("assembles");
 		int[] sortHelp;
 		sortHelp = part.getNumbers();
