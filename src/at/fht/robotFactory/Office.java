@@ -1,5 +1,6 @@
 package at.fht.robotFactory;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 /*
  * @author Seyyid Tiryaki
@@ -15,17 +16,28 @@ public class Office
 	
 	public Office()
 	{
+		logger = LogManager.getLogger(this.getClass().getName());
 		employeeID = 0;
 		threadeeID = 0;
 	}
-	
+	/*
+	 * @return ID for employee
+	 */
 	public synchronized long requestID()
 	{	
-		return employeeID++;
+		employeeID++;
+		logger.info("request ID for employee: " +  employeeID);
+		return employeeID;
+		
 	}
 	
+	/*
+	 * @return ID for Robot
+	 */
 	public synchronized long requestRobotID()
 	{
-		return threadeeID++;
+		employeeID++;
+		logger.info("request ID for robot: " +  employeeID);
+		return threadeeID;
 	}
 }
