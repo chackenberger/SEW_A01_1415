@@ -1,13 +1,23 @@
 package at.fht.robotFactory;
-//test
+/*
+ * @author Seyyid Tiryaki
+ * @description All Workers extend from the Employee 
+ */
 public class Employee
 {
 	private long iD;
 
+	/*
+	 * @return get ID from the Employee
+	 */
 	public long getID() 
 	{
 		return iD;
 	}
+	
+	/*
+	 * @return set a new ID for the Employee
+	 */
 	public void setID(long l) 
 	{
 		this.iD = l;
