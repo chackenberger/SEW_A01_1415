@@ -23,8 +23,9 @@ public class Supplier extends Employee implements Runnable, Watchable {
 	}
 	
 	/**
-	 * Adds all the Parts for one Threadee to an Array for Parts
-	 * stores all Parts via Storageguy
+	 * creates an Array filled with PartTypes
+	 * then one Type is selected with a random Number
+	 * Afterwards a loop stores 10 selected PartTypes via Storageguy
 	 */
 	@Override
 	public void run() {
