@@ -1,41 +1,57 @@
 package at.fht.robotFactory;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import at.hackenberger.lib.Watchable;
+
 /**
  * 
  * @author FOCK
  *
  */
 public class Supplier implements Runnable, Watchable {
-	
+
 	private Logger logger;
-	
+	private Part[] p;
+	private boolean shutdown = false;
+
 	public Supplier() {
-		// TODO Auto-generated constructor stub
+		super();
+//		logger = LogManager7.getLogger(this.getClass().getName() + "(" + this.getID() + ")");
 	}
-	
+
 	@Override
 	public void run() {
-		genNumbers();
-		
+		while (!shutdown) {
+			this.p[0] = new Part(PartType.ARM, genNumbers());
+			this.p[1] = new Part(PartType.ARM, genNumbers());
+			this.p[2] = new Part(PartType.EYE, genNumbers());
+			this.p[3] = new Part(PartType.EYE, genNumbers());
+			this.p[4] = new Part(PartType.GEAR, genNumbers());
+			this.p[5] = new Part(PartType.BODY, genNumbers());
+			for (int i = 0; i < p.length; i++) {
+				Factory.getStorage().storePart(p[i]);
+				p[i] = null;
+			}
+		}
 	}
+
 	/**
 	 * generates random numbers for the Parts
+	 * 
 	 * @return int[]
 	 */
 	public int[] genNumbers() {
 		int[] storage = new int[20];
-		for (int i = 0; i <20; i++) {
-			storage[i] = (int)((Math.random()*100)+1);
+		for (int i = 0; i < 20; i++) {
+			storage[i] = (int) ((Math.random() * 100) + 1);
 		}
 		return storage;
 	}
 
 	@Override
 	public boolean shutdown() {
-		// TODO Auto-generated method stub
-		return false;
+		return (this.shutdown = true);
 	}
 }
