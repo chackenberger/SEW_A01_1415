@@ -37,8 +37,8 @@ public class Office
 	 */
 	public synchronized long requestRobotID()
 	{
-		employeeID++;
-		logger.info("request ID for robot: " +  employeeID);
+		threadeeID++;
+		logger.info("request ID for robot: " +  threadeeID);
 		return threadeeID;
 	}
 }
