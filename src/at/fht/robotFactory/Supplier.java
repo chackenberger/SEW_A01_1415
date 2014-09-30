@@ -10,7 +10,7 @@ import at.hackenberger.lib.Watchable;
  * @author FOCK
  *
  */
-public class Supplier implements Runnable, Watchable {
+public class Supplier extends Employee implements Runnable, Watchable {
 
 	private Logger logger;
 	private Part[] p;
@@ -18,9 +18,13 @@ public class Supplier implements Runnable, Watchable {
 
 	public Supplier() {
 		super();
-//		logger = LogManager7.getLogger(this.getClass().getName() + "(" + this.getID() + ")");
+		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID() + ")");
 	}
-
+	
+	/**
+	 * Adds all the Parts for one Threadee to an Array for Parts
+	 * stores all Parts via Storageguy
+	 */
 	@Override
 	public void run() {
 		while (!shutdown) {
