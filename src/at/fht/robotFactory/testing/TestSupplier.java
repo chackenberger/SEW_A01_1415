@@ -27,4 +27,16 @@ public class TestSupplier {
 		int[] test = this.s.genNumbers();
 		assertEquals(test.length, 20);
 	}
+	@Test
+	public void testSupplier(){
+		Thread st = new Thread(new Supplier());
+		st.start();
+		try {
+			st.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		st.shutdown();
+	}
 }

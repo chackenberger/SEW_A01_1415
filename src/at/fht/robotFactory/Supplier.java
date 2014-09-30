@@ -30,12 +30,13 @@ public class Supplier extends Employee implements Runnable, Watchable {
 	@Override
 	public void run() {
 		while (!shutdown) {
+			System.out.println("test");
 			PartType pt[] = PartType.values();
 			Random r = new Random();
 			int zz = r.nextInt(pt.length);
 			for (int i = 0; i < 10; i++){
 				Part p = new Part(pt[zz], genNumbers());
-				Factory.getStorage().storePart(p);
+//				Factory.getStorage().storePart(p);
 			}
 		}
 	}
