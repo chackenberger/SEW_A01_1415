@@ -1,5 +1,7 @@
 package at.fht.robotFactory;
 
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +15,6 @@ import at.hackenberger.lib.Watchable;
 public class Supplier extends Employee implements Runnable, Watchable {
 
 	private Logger logger;
-	private Part[] p;
 	private boolean shutdown = false;
 
 	public Supplier() {
@@ -28,15 +29,12 @@ public class Supplier extends Employee implements Runnable, Watchable {
 	@Override
 	public void run() {
 		while (!shutdown) {
-			this.p[0] = new Part(PartType.ARM, genNumbers());
-			this.p[1] = new Part(PartType.ARM, genNumbers());
-			this.p[2] = new Part(PartType.EYE, genNumbers());
-			this.p[3] = new Part(PartType.EYE, genNumbers());
-			this.p[4] = new Part(PartType.GEAR, genNumbers());
-			this.p[5] = new Part(PartType.BODY, genNumbers());
-			for (int i = 0; i < p.length; i++) {
-				Factory.getStorage().storePart(p[i]);
-				p[i] = null;
+			PartType pt[] = PartType.values();
+			Random r = new Random();
+			int zz = r.nextInt(pt.length);
+			for (int i = 0; i < 10; i++){
+				Part p = new Part(pt[zz], genNumbers());
+				Factory.getStorage().storePart(p);
 			}
 		}
 	}
