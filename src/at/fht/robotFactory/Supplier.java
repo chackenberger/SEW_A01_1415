@@ -47,6 +47,7 @@ public class Supplier extends Employee implements Runnable, Watchable {
 	 * @return int[]
 	 */
 	public int[] genNumbers() {
+		logger.info("generates numbers for a part");
 		int[] storage = new int[20];
 		for (int i = 0; i < 20; i++) {
 			storage[i] = (int) ((Math.random() * 100) + 1);
