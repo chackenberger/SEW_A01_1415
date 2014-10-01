@@ -7,8 +7,6 @@ public class Employee
 {
 	private long iD;
 
-	
-	
 	public Employee()
 	{
 		this.setID(Factory.getOffice().requestID());
