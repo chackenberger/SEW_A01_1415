@@ -1,5 +1,6 @@
 package at.fht.robotFactory;
 
+import java.io.IOException;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +36,11 @@ public class Supplier extends Employee implements Runnable, Watchable {
 			int zz = r.nextInt(pt.length);
 			for (int i = 0; i < 10; i++){
 				Part p = new Part(pt[zz], genNumbers());
-//				Factory.getStorage().storePart(p);
+				try {
+					Factory.getStorage().storePart(p);
+				} catch (IOException e) {
+					logger.error("Could not save part to storage!");
+				}
 			}
 		}
 	}

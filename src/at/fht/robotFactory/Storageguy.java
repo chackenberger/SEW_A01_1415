@@ -137,7 +137,7 @@ public class Storageguy extends Employee {
 	 * 
 	 * @param part the Part which should be written to the hard disk
 	 */
-	public void storePart(Part part) {
+	public void storePart(Part part) throws IOException {
 		if (part == null)
 			return;
 		PartType type = part.getPartType();
@@ -152,16 +152,11 @@ public class Storageguy extends Employee {
 					newLine[i] = "" + part.getNumbers()[i - 1];
 				}
 				writer.writeNext(newLine);
-				try {
-					writer.flush();
-				} catch (IOException ex) {
-					logger.error("Could not write changes to "
-							+ type.getFileName() + ": " + ex.getMessage());
-					return;
-				}
+				writer.flush();
 			} catch (IOException ex) {
-				logger.error("Something went wrong while creating writer for "
+				logger.error("Something went wrong while writing on file "
 						+ file.getAbsolutePath() + ": " + ex.getMessage());
+				throw ex;
 			}
 		}
 	}
@@ -172,7 +167,7 @@ public class Storageguy extends Employee {
 	 * @param employeeID the id from the employee which assembled the Threadee
 	 * @param parts the parts of which the Threadee consists
 	 */
-	public void storeThreadee(long employeeID, Part[] parts) {
+	public void storeThreadee(long employeeID, Part[] parts) throws IOException {
 		if (parts == null)
 			return;
 		ArrayList<String> line = new ArrayList<String>();
@@ -190,18 +185,12 @@ public class Storageguy extends Employee {
 			try (CSVWriter writer = new CSVWriter(new FileWriter(productFile,
 					true))) {
 				writer.writeNext(newLine);
-				try {
-					writer.flush();
-				} catch (IOException ex) {
-					logger.error("Could not write changes to "
-							+ productFile.getAbsolutePath() + ": "
-							+ ex.getMessage());
-					return;
-				}
+				writer.flush();
 			} catch (IOException ex) {
-				logger.error("Something went wrong while creating writer for "
+				logger.error("Something went wrong while writing on file "
 						+ productFile.getAbsolutePath() + ": "
 						+ ex.getMessage());
+				throw ex;
 			}
 		}
 	}

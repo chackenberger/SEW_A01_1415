@@ -1,5 +1,6 @@
 package at.fht.robotFactory;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,8 +34,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * returns Parts back to the Storageguy if the 
 	 * Assembler didnt get all requierd Parts
 	 */
-	private void returnParts(){
-		logger.error("Something went wrong while requesting for Parts");
+	public void returnParts() throws IOException{
 		logger.warn("could not get all parts for a Threade return current parts to storage");
 		Storageguy sg = Factory.getStorage();
 		for (int i = 0; i < storage.length; i++){
@@ -57,7 +57,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * puts all the Robotparts together to assemble a Threadee
 	 * @param parts
 	 */
-	private void robotArchive(Part[] parts){
+	public void robotArchive(Part[] parts) throws IOException{
 		logger.info("send new Threadee to storage");
 		Factory.getStorage().storeThreadee(this.getID(), parts);
 	}
@@ -81,15 +81,30 @@ public class Assembler extends Employee implements Runnable, Watchable {
 			for(int i = 0; i < types.length; i++) {
 				Part part = requestPart(types[i]);
 				if(part == null) {
-					returnParts();
+					while(!shutdown) {
+						try {
+							returnParts();
+							break;
+						}catch (IOException ex) {
+							logger.error("Could not save parts back to storage! Trying again...");
+						}
+					}
 					allparts = false;
 					break;
 				}
 				sort(part);
 				storage[i] = part;
 			}
-			if(allparts)
-				robotArchive(storage);
+			if(allparts) {
+				while(!shutdown) {
+					try {
+						robotArchive(storage);
+						break;
+					}catch (IOException ex) {
+						logger.error("Could not save robot in storage! Trying again...");
+					}
+				}
+			}
 		}
 	}
 	/**
