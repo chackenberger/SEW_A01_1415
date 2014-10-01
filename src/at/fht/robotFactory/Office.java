@@ -19,7 +19,6 @@ public class Office
 		logger = LogManager.getLogger(this.getClass().getName());
 		employeeID = 0;
 		threadeeID = 0;
-		logger.info("Office generated");
 	}
 	/*
 	 * @return ID for employee
@@ -27,7 +26,7 @@ public class Office
 	public synchronized long requestID()
 	{	
 		employeeID++;
-		logger.info("request ID for employee: " +  employeeID);
+		logger.info("send ID for employee: " +  employeeID);
 		return employeeID;
 		
 	}
@@ -38,7 +37,7 @@ public class Office
 	public synchronized long requestRobotID()
 	{
 		threadeeID++;
-		logger.info("request ID for robot: " +  threadeeID);
+		logger.info("send ID for robot: " +  threadeeID);
 		return threadeeID;
 	}
 }

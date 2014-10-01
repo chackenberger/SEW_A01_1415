@@ -59,6 +59,7 @@ public class Factory implements Runnable {
 	}
 	
 	private static void initFactory() {
+		logger.info("Init Office and Storageguy");
 		office = new Office();
 		try {
 			storage = new Storageguy(lagerDir);
@@ -143,6 +144,7 @@ public class Factory implements Runnable {
 	private static void startThreads() {
 		threads = new Watchable[supAmount+assAmount];
 		ts = new Thread[supAmount+assAmount];
+		logger.info("Starting " + supAmount + " Supplier Threads");
 		for(int i = 0; i < supAmount; i++) {
 			Supplier sup = new Supplier();
 			threads[i] = sup;
@@ -150,6 +152,7 @@ public class Factory implements Runnable {
 			t.start();
 			ts[i] = t;
 		}
+		logger.info("Starting " + assAmount + " Assembler Threads");
 		for(int i = supAmount; i < supAmount+assAmount; i++) {
 			Assembler ass = new Assembler();
 			threads[i] = ass;
@@ -163,6 +166,7 @@ public class Factory implements Runnable {
 	public void run() {	
 		try {
 			Thread.sleep(runtime);
+			logger.info("Runtime expired stopping all threads");
 		} catch (InterruptedException e) {
 			logger.error("Watchdog interrupted stopping all threads NOW!");
 		}

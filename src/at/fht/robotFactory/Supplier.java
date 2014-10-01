@@ -36,7 +36,9 @@ public class Supplier extends Employee implements Runnable, Watchable {
 			int zz = r.nextInt(pt.length);
 			for (int i = 0; i < 10; i++){
 				Part p = new Part(pt[zz], genNumbers());
+				logger.info("Generated new " + pt[zz]);
 				try {
+					logger.info("Saving " + pt[zz] + " to storage");
 					Factory.getStorage().storePart(p);
 				} catch (IOException e) {
 					logger.error("Could not save part to storage!");

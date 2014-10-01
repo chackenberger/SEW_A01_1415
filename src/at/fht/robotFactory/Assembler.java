@@ -35,7 +35,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * Assembler didnt get all requierd Parts
 	 */
 	public void returnParts() throws IOException{
-		logger.warn("could not get all parts for a Threade return current parts to storage");
+		logger.warn("could not get all parts for a Threadee return current parts to storage");
 		Storageguy sg = Factory.getStorage();
 		for (int i = 0; i < storage.length; i++){
 			sg.storePart(storage[i]);

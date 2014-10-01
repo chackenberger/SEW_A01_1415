@@ -43,6 +43,7 @@ public class Storageguy extends Employee {
 			throw new InvalidParameterException("storageDir must not be null!");
 		logger = LogManager.getLogger(this.getClass().getName() + "("
 				+ this.getID() + ")");
+		logger.info("Creating required files which do not exist yet");
 		files = new HashMap<PartType, File>();
 		for (PartType type : PartType.values()) {
 			File file = new File(storageDir, type.getFileName());
@@ -77,6 +78,7 @@ public class Storageguy extends Employee {
 	public Part getPart(PartType type) {
 		if (type == null)
 			return null;
+		logger.info("Reading " + type + " from hard disk");
 		synchronized (type) {
 			File file = files.get(type);
 			try (CSVReader reader = new CSVReader(new FileReader(file))) { // try-with-resources
@@ -143,6 +145,7 @@ public class Storageguy extends Employee {
 		PartType type = part.getPartType();
 		if (type == null)
 			return;
+		logger.info("Writing " + type + " to hard disk");
 		synchronized (type) {
 			File file = files.get(part.getPartType());
 			try (CSVWriter writer = new CSVWriter(new FileWriter(file, true))) {
@@ -181,6 +184,7 @@ public class Storageguy extends Employee {
 				line.add("" + number);
 		}
 		String[] newLine = line.toArray(new String[line.size()]);
+		logger.info("Writing Threadee to hard disk");
 		synchronized (productFile) {
 			try (CSVWriter writer = new CSVWriter(new FileWriter(productFile,
 					true))) {
