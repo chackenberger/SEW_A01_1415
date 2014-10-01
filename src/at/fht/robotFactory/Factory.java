@@ -169,7 +169,7 @@ public class Factory implements Runnable {
 		}catch (ParseException ex) {
 			System.out.println(" Error: " + ex.getMessage());
 			HelpFormatter format = new HelpFormatter();
-			format.printHelp("robotfactory", options);
+			format.printHelp("java -jar robotfactory", options);
 			System.exit(1);
 		}
 	}
