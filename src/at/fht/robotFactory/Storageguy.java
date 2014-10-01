@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +36,11 @@ public class Storageguy extends Employee {
 	 * for the storage on the hard disk
 	 * 
 	 * @param storageDir the directory where the files will be stored
+	 * @throws IOException when the file can not be created on hard disk
 	 */
-	public Storageguy(String storageDir) {
-		super();
+	public Storageguy(String storageDir) throws IOException {
+		if(storageDir == null)
+			throw new InvalidParameterException("storageDir must not be null!");
 		logger = LogManager.getLogger(this.getClass().getName() + "("
 				+ this.getID() + ")");
 		files = new HashMap<PartType, File>();
@@ -49,8 +52,7 @@ public class Storageguy extends Employee {
 			} catch (IOException ex) {
 				logger.error("Could not create " + file.getAbsolutePath()
 						+ ": " + ex.getMessage());
-				logger.info("Stopping Program!");
-				System.exit(0);
+				throw ex;
 			}
 			files.put(type, file);
 		}
@@ -61,8 +63,7 @@ public class Storageguy extends Employee {
 		} catch (IOException ex) {
 			logger.error("Could not create " + file.getAbsolutePath() + ": "
 					+ ex.getMessage());
-			logger.info("Stopping Program!");
-			System.exit(0);
+			throw ex;
 		}
 		productFile = file;
 	}
@@ -71,7 +72,7 @@ public class Storageguy extends Employee {
 	 * Reads a Part from the Hard Disk and returns it
 	 * 
 	 * @param type the type of the Part which should be returned
-	 * @return the read Part
+	 * @return the read Part or null if any exceptions occurs while reading from the hard disk
 	 */
 	public Part getPart(PartType type) {
 		if (type == null)
