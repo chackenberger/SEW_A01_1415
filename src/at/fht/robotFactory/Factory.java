@@ -19,6 +19,7 @@ import at.hackenberger.lib.Watchable;
 public class Factory implements Runnable {
 	
 	private static Watchable[] threads;
+	private static Thread[] ts;
 	
 	private static Office office;
 	private static Storageguy storage;
@@ -46,6 +47,15 @@ public class Factory implements Runnable {
 		setupLog4J();
 		logger = LogManager.getLogger(Factory.class.getName());
 		initFactory();
+	}
+	
+	public static void testMainWithThreads(String arg) {
+		String[] args = arg.split(" ");
+		parseArgs(args);
+		setupLog4J();
+		logger = LogManager.getLogger(Factory.class.getName());
+		initFactory();
+		startThreads();
 	}
 	
 	private static void initFactory() {
@@ -126,36 +136,38 @@ public class Factory implements Runnable {
 			System.out.println(" Error: " + ex.getMessage());
 			HelpFormatter format = new HelpFormatter();
 			format.printHelp("robotfactory", options);
-			System.exit(0);
+			System.exit(1);
 		}
 	}
 	
 	private static void startThreads() {
 		threads = new Watchable[supAmount+assAmount];
+		ts = new Thread[supAmount+assAmount];
 		for(int i = 0; i < supAmount; i++) {
 			Supplier sup = new Supplier();
 			threads[i] = sup;
-			new Thread(sup).start();
-			
+			Thread t = new Thread(sup);
+			t.start();
+			ts[i] = t;
 		}
 		for(int i = supAmount; i < supAmount+assAmount; i++) {
 			Assembler ass = new Assembler();
 			threads[i] = ass;
-			new Thread(ass).start();
+			Thread t = new Thread(ass);
+			t.start();
+			ts[i] = t;
 		}
 	}
 	
 	@Override
-	public void run() {
-		
-		
+	public void run() {	
 		try {
 			Thread.sleep(runtime);
 		} catch (InterruptedException e) {
 			logger.error("Watchdog interrupted stopping all threads NOW!");
 		}
 		for(Watchable w : threads)
-			w.shutdown();
+			while(!w.shutdown());
 		
 	}
 	
@@ -165,5 +177,9 @@ public class Factory implements Runnable {
 	
 	public static Storageguy getStorage() {
 		return storage;
+	}
+	
+	public static Thread[] getThreads() {
+		return ts;
 	}
 }
