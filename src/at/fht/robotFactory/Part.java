@@ -35,7 +35,7 @@ public class Part {
 	 * @return the numbers
 	 */
 	public int[] getNumbers() {
-		return this.numbers;
+		return this.numbers.clone();
 	}
 	
 	/**
