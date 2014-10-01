@@ -18,7 +18,7 @@ public class Supplier extends Employee implements Runnable, Watchable {
 	private boolean shutdown = false;
 
 	public Supplier() {
-		super();
+		this.setID(Factory.getOffice().requestID());
 		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID() + ")");
 	}
 	
