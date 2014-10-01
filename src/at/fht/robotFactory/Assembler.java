@@ -15,9 +15,8 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	private boolean shutdown = false;
 	
 	public Assembler() {
-		super();
 		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID()  + ")");
-		this.storage = new Part[PartType.values().length];
+		this.storage = new Part[PartType.values().length + 2]; //+2 because eye and arm are needed twice
 		
 	}
 	
@@ -27,7 +26,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @return 
 	 */
 	public Part requestPart(PartType type) {
-		logger.info("Requesting for Part");
+		logger.info("request " + type + " from storage");
 		return Factory.getStorage().getPart(type);
 	}
 	/**
@@ -36,6 +35,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 */
 	private void returnParts(){
 		logger.error("Something went wrong while requesting for Parts");
+		logger.warn("could not get all parts for a Threade return current parts to storage");
 		Storageguy sg = Factory.getStorage();
 		for (int i = 0; i < storage.length; i++){
 			sg.storePart(storage[i]);
@@ -47,7 +47,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param type
 	 */
 	public void sort(Part part) {
-		logger.info("assembles");
+		logger.info("sorting Part " + part.getPartType());
 		int[] sortHelp;
 		sortHelp = part.getNumbers();
 		Arrays.sort(sortHelp);
@@ -58,7 +58,7 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	 * @param parts
 	 */
 	private void robotArchive(Part[] parts){
-		logger.info("archives the Threadee");
+		logger.info("send new Threadee to storage");
 		Factory.getStorage().storeThreadee(this.getID(), parts);
 	}
 	/**
@@ -67,17 +67,29 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	@Override
 	public void run() {
 		while(!shutdown) {
-			PartType[] types = PartType.values();
+			PartType[] types = new PartType[storage.length];
+			int j = 0;
+			for(PartType type : PartType.values()) {
+				types[j] = type;
+				j++;
+				if(type == PartType.ARM || type == PartType.EYE) {
+					types[j] = type;
+					j++;
+				}
+			}
+			boolean allparts = true;
 			for(int i = 0; i < types.length; i++) {
 				Part part = requestPart(types[i]);
 				if(part == null) {
 					returnParts();
-					continue;
+					allparts = false;
+					break;
 				}
 				sort(part);
 				storage[i] = part;
 			}
-			robotArchive(storage);
+			if(allparts)
+				robotArchive(storage);
 		}
 	}
 	/**
