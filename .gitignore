@@ -1,5 +1,7 @@
 *.asta.bak
 *.asta.lock
+*.csv
+/logs
 
 # ignore everything
 .*
