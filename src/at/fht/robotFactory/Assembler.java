@@ -8,6 +8,12 @@ import org.apache.logging.log4j.Logger;
 
 import at.hackenberger.lib.Watchable;
 
+/**
+ * 
+ * Runnable which assembles Threadees
+ * @author Fock Hagen
+ * @version 1.0
+ */
 public class Assembler extends Employee implements Runnable, Watchable {
 	
 	private Part[] storage;
@@ -22,17 +28,18 @@ public class Assembler extends Employee implements Runnable, Watchable {
 	}
 	
 	/**
-	 * Requests a PartType from the StorageGuy
-	 * @param type
-	 * @return 
+	 * Requests a Part from the Storageguy
+	 * @param type the PartType of the requested Part
+	 * @return the requested Part
 	 */
 	public Part requestPart(PartType type) {
 		logger.info("request " + type + " from storage");
 		return Factory.getStorage().getPart(type);
 	}
+	
 	/**
-	 * returns Parts back to the Storageguy if the 
-	 * Assembler didnt get all requierd Parts
+	 * returns all Parts which are currently in the storage of this Assembler to the Storageguy
+	 * @throws IOException when the Storageguy fails to save the parts
 	 */
 	public void returnParts() throws IOException{
 		logger.warn("could not get all parts for a Threadee return current parts to storage");
@@ -42,9 +49,10 @@ public class Assembler extends Employee implements Runnable, Watchable {
 			storage[i] = null;
 		}
 	}
+
 	/**
-	 * sorts numbers as a symbol of assembling
-	 * @param type
+	 * Sorts the numbers array of a port as a symbol of assembling
+	 * @param part the which should be assembled
 	 */
 	public void sort(Part part) {
 		logger.info("sorting Part " + part.getPartType());
@@ -53,16 +61,20 @@ public class Assembler extends Employee implements Runnable, Watchable {
 		Arrays.sort(sortHelp);
 		part.setNumbers(sortHelp);
 	}
+	
 	/**
-	 * puts all the Robotparts together to assemble a Threadee
-	 * @param parts
+	 * Give the assembled Threadee to the Storageguy for saving
+	 * @param parts the parts of which the Threadee consits
+	 * @throws IOException when the Storageguy fails to save the parts
 	 */
 	public void robotArchive(Part[] parts) throws IOException{
 		logger.info("send new Threadee to storage");
 		Factory.getStorage().storeThreadee(this.getID(), parts);
 	}
-	/**
-	 * 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
 	 */
 	@Override
 	public void run() {
@@ -107,8 +119,10 @@ public class Assembler extends Employee implements Runnable, Watchable {
 			}
 		}
 	}
-	/**
-	 * for the Watchdog
+	
+	/*
+	 * (non-Javadoc)
+	 * @see at.hackenberger.lib.Watchable#shutdown()
 	 */
 	@Override
 	public boolean shutdown() {

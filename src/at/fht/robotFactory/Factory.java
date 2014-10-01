@@ -16,9 +16,17 @@ import org.apache.logging.log4j.Logger;
 
 import at.hackenberger.lib.Watchable;
 
+/**
+ * The main class of or controller the robotfactory,
+ * which represents also the Watchdog for all threads
+ * @author Christoph Hackenberger
+ * @version 1.0
+ */
 public class Factory implements Runnable {
 	
 	private static Watchable[] threads;
+	
+	//This array of threads is just exists because of unit testing reasons
 	private static Thread[] ts;
 	
 	private static Office office;
@@ -32,6 +40,10 @@ public class Factory implements Runnable {
 	private static int assAmount;
 	private static int runtime;
 	
+	/**
+	 * The Main method of the robotfactory
+	 * @param args program options
+	 */
 	public static void main(String[] args) {
 		parseArgs(args);
 		setupLog4J();
@@ -41,6 +53,10 @@ public class Factory implements Runnable {
 		new Thread(new Factory()).start();
 	}
 	
+	/**
+	 * just a main method for unit testing
+	 * @param arg program options
+	 */
 	public static void testMain(String arg) {
 		String[] args = arg.split(" ");
 		parseArgs(args);
@@ -49,6 +65,10 @@ public class Factory implements Runnable {
 		initFactory();
 	}
 	
+	/**
+	 * just a main method for unit testing
+	 * @param arg program options
+	 */
 	public static void testMainWithThreads(String arg) {
 		String[] args = arg.split(" ");
 		parseArgs(args);
@@ -58,6 +78,9 @@ public class Factory implements Runnable {
 		startThreads();
 	}
 	
+	/**
+	 * creates the Office and the Storageguy of the robotfactory
+	 */
 	private static void initFactory() {
 		logger.info("Init Office and Storageguy");
 		office = new Office();
@@ -70,12 +93,22 @@ public class Factory implements Runnable {
 		}
 	}
 	
+	/**
+	 * basic setup for Log4J
+	 * this method is a little bit tricky because it sets a system property to the logfile dir
+	 * but Log4j has at this time already created a file ${sys:kfhuCTPdas} as defined in the xml
+	 * so we have to delete this
+	 */
 	private static void setupLog4J() {
 		System.setProperty("kfhuCTPdas", logDir);
 		File dir = new File("${sys:kfhuCTPdas}");
 		dir.delete();
 	}
 	
+	/**
+	 * Parses the options from the command line
+	 * @param args the options from the command line
+	 */
 	@SuppressWarnings("static-access")
 	private static void parseArgs(String[] args) {
 		Options options = new Options();
@@ -141,6 +174,9 @@ public class Factory implements Runnable {
 		}
 	}
 	
+	/**
+	 * starts the Supplier and Assembler Threads
+	 */
 	private static void startThreads() {
 		threads = new Watchable[supAmount+assAmount];
 		ts = new Thread[supAmount+assAmount];
@@ -162,6 +198,10 @@ public class Factory implements Runnable {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {	
 		try {
@@ -175,14 +215,27 @@ public class Factory implements Runnable {
 		
 	}
 	
+	/**
+	 * Returns the Office of the robotfactory
+	 * @return the Office of the robotfactory
+	 */
 	public static Office getOffice() {
 		return office;
 	}
 	
+	/**
+	 * Returns the Storageguy of the robotfactory
+	 * @return the Storageguy of the robotfactory
+	 */
 	public static Storageguy getStorage() {
 		return storage;
 	}
 	
+	/**
+	 * Returns the started Threads from Factory
+	 * This method just exists because of unit testing reasons
+	 * @return array of Threads
+	 */
 	public static Thread[] getThreads() {
 		return ts;
 	}

@@ -2,9 +2,10 @@ package at.fht.robotFactory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-/*
+/**
+ * The central point where all employees can request IDs and also IDs for Threadees
  * @author Seyyid Tiryaki
- * @description The Office awards IDs for the employees and robots
+ * @version 1.0
  */
 
 public class Office
@@ -14,13 +15,18 @@ public class Office
 	private long employeeID;
 	private long threadeeID;
 	
+	/**
+	 * Creates a new Office object
+	 */
 	public Office()
 	{
 		logger = LogManager.getLogger(this.getClass().getName());
 		employeeID = 0;
 		threadeeID = 0;
 	}
-	/*
+	
+	/**
+	 * Request an ID for an employee
 	 * @return ID for employee
 	 */
 	public synchronized long requestID()
@@ -31,8 +37,9 @@ public class Office
 		
 	}
 	
-	/*
-	 * @return ID for Robot
+	/**
+	 * Request an ID for a Threadee
+	 * @return ID for Threadee
 	 */
 	public synchronized long requestRobotID()
 	{

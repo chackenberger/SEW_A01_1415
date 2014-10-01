@@ -16,10 +16,9 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
 /**
- * 
+ * Handler for reading and writing Parts and Threadees to the hard disk
  * @author Christoph Hackenberger
- * Handler for reading and writing Parts and
- * Threadees to the hard disk
+ * @version 1.0
  */
 public class Storageguy extends Employee {
 
@@ -138,6 +137,7 @@ public class Storageguy extends Employee {
 	 * Writes a Part to the hard disk
 	 * 
 	 * @param part the Part which should be written to the hard disk
+	 * @throws IOException when an error occurs while saving to the hard disk
 	 */
 	public void storePart(Part part) throws IOException {
 		if (part == null)
@@ -169,6 +169,7 @@ public class Storageguy extends Employee {
 	 * 
 	 * @param employeeID the id from the employee which assembled the Threadee
 	 * @param parts the parts of which the Threadee consists
+	 * @throws IOException when an error occurs while saving to the hard disk
 	 */
 	public void storeThreadee(long employeeID, Part[] parts) throws IOException {
 		if (parts == null)

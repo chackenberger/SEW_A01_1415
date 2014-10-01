@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 /**
  * 
- * @author Christoph Hackenberger
  * Represents a Part of a Threadee
+ * @author Christoph Hackenberger
+ * @version 1.0
  */
 public class Part {
 

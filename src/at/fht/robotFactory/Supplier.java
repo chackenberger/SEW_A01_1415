@@ -9,23 +9,25 @@ import org.apache.logging.log4j.Logger;
 import at.hackenberger.lib.Watchable;
 
 /**
- * 
- * @author FOCK
- *
+ * Supplies the factory with new parts
+ * @author Fock Hagen
+ * @version 1.0
  */
 public class Supplier extends Employee implements Runnable, Watchable {
 
 	private Logger logger;
 	private boolean shutdown = false;
 
+	/**
+	 * Creates a new Supplier object
+	 */
 	public Supplier() {
 		logger = LogManager.getLogger(this.getClass().getName() + "(" + this.getID() + ")");
 	}
 	
-	/**
-	 * creates an Array filled with PartTypes
-	 * then one Type is selected with a random Number
-	 * Afterwards a loop stores 10 selected PartTypes via Storageguy
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
 	 */
 	@Override
 	public void run() {
@@ -49,8 +51,7 @@ public class Supplier extends Employee implements Runnable, Watchable {
 
 	/**
 	 * generates random numbers for the Parts
-	 * 
-	 * @return int[]
+	 * @return a int array with random positiv integers in an unordered oder
 	 */
 	public int[] genNumbers() {
 		logger.info("generates numbers for a part");
@@ -61,6 +62,10 @@ public class Supplier extends Employee implements Runnable, Watchable {
 		return storage;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see at.hackenberger.lib.Watchable#shutdown()
+	 */
 	@Override
 	public boolean shutdown() {
 		return (this.shutdown = true);

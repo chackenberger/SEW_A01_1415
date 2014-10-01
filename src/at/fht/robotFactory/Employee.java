@@ -1,31 +1,38 @@
 package at.fht.robotFactory;
-/*
+/**
+ * 
+ * Represents an general employee of the robotfactory 
  * @author Seyyid Tiryaki
- * @description All Workers extend from the Employee 
+ * @version 1.0
  */
 public class Employee
 {
 	private long iD;
 
+	/**
+	 * Creates a new Employee object
+	 */
 	public Employee()
 	{
 		this.setID(Factory.getOffice().requestID());
 	}
 	
-	/*
-	 * @return get ID from the Employee
+	/**
+	 * Retruns the ID of the Employee
+	 * @return the ID of the Employee
 	 */
 	public long getID() 
 	{
 		return iD;
 	}
 	
-	/*
-	 * @return set a new ID for the Employee
+	/**
+	 * Sets the ID of the Employee to the specified value
+	 * @param id the ID of the Employee
 	 */
-	public void setID(long l) 
+	public void setID(long id) 
 	{
-		this.iD = l;
+		this.iD = id;
 	}
 	
 }
