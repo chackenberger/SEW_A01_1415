@@ -12,6 +12,7 @@ public class TestEmployee {
 	
 	@Before
 	public void setup() {
+		Factory.testMain("-a 10 -l lager -o logs/log --lieferanten 5 -t 20000");
 		e = new Employee();
 	}
 

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.fht.robotFactory.Factory;
 import at.fht.robotFactory.Part;
 import at.fht.robotFactory.PartType;
 import at.fht.robotFactory.Supplier;
@@ -18,6 +19,7 @@ public class TestSupplier {
 	
 	@Before
 	public void setup(){
+		Factory.testMain("-a 10 -l lager -o logs/log --lieferanten 5 -t 20000");
 		this.s = new Supplier();
 	}
 	
@@ -29,14 +31,16 @@ public class TestSupplier {
 	}
 	@Test
 	public void testSupplier(){
-		Thread st = new Thread(new Supplier());
-		st.start();
-		try {
-			st.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		st.shutdown();
+		Supplier sp = new Supplier();
+	}
+	
+	@Test
+	public void tryIfThreadsShutsdownIn1Second() throws InterruptedException{
+		Thread t = new Thread(s);
+		t.start();
+		Thread.sleep(100);
+		s.shutdown();
+		Thread.sleep(1000);
+		assertEquals(false, t.isAlive());
 	}
 }
