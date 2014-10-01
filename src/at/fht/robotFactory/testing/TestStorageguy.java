@@ -3,7 +3,6 @@ package at.fht.robotFactory.testing;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

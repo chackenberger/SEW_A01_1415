@@ -19,6 +19,6 @@ public class TestEmployee {
 	@Test
 	public void testID() {
 		e.setID(1);
-		e.getID();
+		assertEquals(1, e.getID());
 	}
 }
